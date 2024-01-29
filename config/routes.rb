@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   # get '/task/:id/edit', to: 'tasks#edit'
   # patch '/task/:id', to: 'tasks#update'
   # delete '/task/:id', to: 'tasks#destroy'
-  resources :tasks
+  root 'tasks#index'
+  resources :tasks, except: :index
 end
