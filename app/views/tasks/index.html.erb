@@ -1,6 +1,13 @@
 <h1>My tasks</h1>
-<% @tasks.each do |task| %>
-  <ul>
-    <%= link_to task.title, task_path(task) %>
-  </ul>
+<% if @tasks.empty? %>
+  <h2>No tasks...add a task <%= link_to 'here', new_task_path %></h2>
+<% else %>
+  <% @tasks.each do |task| %>
+    <ul>
+      <%= check_box_tag 'Completed?', 'no', task.completed? %>
+      <%= link_to task.title, task_path(task) %>
+      <%= link_to 'Delete task', task_path(task), data: { turbo_method: :delete, turbo_confirm: "Delete #{task.title}?" } %>
+    </ul>
+  <% end %>
+  <%= link_to 'Add task', new_task_path %>
 <% end %>
