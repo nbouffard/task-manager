@@ -1,10 +1,28 @@
-<h1><%= @task.title %></h1>
-<p><%= @task.details %></p>
-<%= label_tag 'Completed?' %>
-<%= check_box_tag 'Completed?', 'no', @task.completed? %>
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h1><%= @task.title %></h1>
+    <%= link_to 'Edit task', edit_task_path(@task), class: 'bg-light border rounded' %>
+  </div>
+  <p class='bg-light p-3 border rounded'><%= @task.details %></p>
+  <% if @task.completed? %>
+    <%= check_box_tag 'Completed?', 'no', @task.completed? %>
+    <%= label_tag 'This task is completed' %>
+  <% else %>
+    <%= check_box_tag 'Completed?', 'no', @task.completed? %>
+    <%= label_tag 'This task is not completed yet' %>
+  <% end %>
 
 
-<br>
-<%= link_to 'Delete task', task_path(@task), data: { turbo_method: :delete, turbo_confirm: 'Are you sure??' } %>
-<%= link_to 'Edit task', edit_task_path(@task) %>
-<%= link_to 'Back to list', root_path %>
+  <br>
+  <div class="d-flex">
+    <%= link_to task_path(@task), data: { turbo_method: :delete, turbo_confirm: "Delete #{@task.title}?" } do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+    <%= link_to root_path, class: "text-decoration-none" do %>
+    <div class='d-flex'>
+      <i class="fa-solid fa-arrow-rotate-left p-1"></i>
+      <p>Back to list</p>
+    </div>
+    <% end %>
+  </div>
+</div>
